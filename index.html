@@ -9,10 +9,10 @@
       <form>
         <input type="text" id="topicInput" placeholder="소재" />
         <input type="text" id="genreInput" placeholder="장르" />
-        <button type="submit">전송</button>
+        <button type="submit">입력</button>
       </form>
       <button id="characterButton">등장인물</button>
-      <button id="happeningButton">사건</button>
+      <button id="happeningButton">에피소드</button>
       <div id="contents"></div>
     </div>
     <script>
@@ -23,8 +23,10 @@
       let $characterButton = document.querySelector("#characterButton");
       let $happeningButton = document.querySelector("#happeningButton");
 
+      // chatGPT API
       let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
 
+      // 사전 저장된 정보 (assistant의 역할)
       let data = [
         {
           role: "system",
@@ -33,6 +35,7 @@
         },
       ];
 
+      // 입력 버튼 누를 시
       $button.addEventListener("click", (e) => {
         e.preventDefault();
         userInputTopic = $topicInput.value;
@@ -47,14 +50,16 @@
         li.innerText = content;
         $contents.appendChild(li);
 
+        // data에 질문 추가
         data.push({
           role: "user",
-          content: `소재: ${userInputTopic}, 장르: ${userInputGenre}의 소설 플롯 300자 내외로 작성해줘. 다음과 같은 형식으로 답변을 줘. 형식: '제목 : 작성한 제목\n설정 : 100자 내외의 작성한 내용의 배경 설정\n플롯 : 작성한 플롯 내용' `,
+          content: `소재: ${userInputTopic}, 장르: ${userInputGenre}의 소설 플롯 300자 내외로 작성해줘. 다음과 같은 형식으로 답변을 줘. 형식: '제목 : 작성한 제목\n설정 : 100자 이내의 작성한 내용의 배경 설정\n플롯 : 작성한 플롯 내용' `,
         });
 
         chatGptAPI(data);
       });
 
+      // 등장인물 버튼 누를시
       $characterButton.addEventListener("click", (e) => {
         e.preventDefault();
         data.push({
@@ -65,6 +70,7 @@
         chatGptAPI(data);
       });
 
+      // 에피소드 버튼 누를시
       $happeningButton.addEventListener("click", (e) => {
         e.preventDefault();
         data.push({
@@ -75,6 +81,7 @@
         chatGptAPI(data);
       });
 
+      // chatGPT API에게 질문에 대한 답 요청
       function chatGptAPI(data) {
         fetch(url, {
           method: "POST",
@@ -102,7 +109,7 @@
             });
           });
         // 아래 코드는 fetch 성공, 실패, 통신 중 여부와 상관없이 실행됩니다. 비동기에요.
-        console.log("hello world");
+        console.log("실행 확인");
       }
     </script>
   </body>
