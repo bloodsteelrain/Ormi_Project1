@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>chat</title>
+  </head>
+  <body>
+    <div>
+      <form>
+        <input type="text" id="topicInput" placeholder="소재" />
+        <input type="text" id="genreInput" placeholder="장르" />
+        <button type="submit">전송</button>
+      </form>
+      <button id="characterButton">등장인물</button>
+      <button id="happeningButton">사건</button>
+      <div id="contents"></div>
+    </div>
+    <script>
+      let $topicInput = document.querySelector("#topicInput");
+      let $genreInput = document.querySelector("#genreInput");
+      let $button = document.querySelector("button");
+      let $contents = document.querySelector("#contents");
+      let $characterButton = document.querySelector("#characterButton");
+      let $happeningButton = document.querySelector("#happeningButton");
+
+      let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
+
+      let data = [
+        {
+          role: "system",
+          content:
+            "assistant는 모든 장르에 해박하고 대중적인 문체를 가진 소설가이다.",
+        },
+      ];
+
+      $button.addEventListener("click", (e) => {
+        e.preventDefault();
+        userInputTopic = $topicInput.value;
+        $topicInput.value = "";
+        userInputGenre = $genreInput.value;
+        $genreInput.value = "";
+
+        let content = `소재: ${userInputTopic}, 장르: ${userInputGenre}`;
+
+        // 화면에 입력한 소재와 장르 표시
+        let li = document.createElement("li");
+        li.innerText = content;
+        $contents.appendChild(li);
+
+        data.push({
+          role: "user",
+          content: `소재: ${userInputTopic}, 장르: ${userInputGenre}의 소설 플롯 300자 내외로 작성해줘. 다음과 같은 형식으로 답변을 줘. 형식: '제목 : 작성한 제목\n설정 : 100자 내외의 작성한 내용의 배경 설정\n플롯 : 작성한 플롯 내용' `,
+        });
+
+        chatGptAPI(data);
+      });
+
+      $characterButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        data.push({
+          role: "user",
+          content: `이 소설의 등장인물을 2명까지 세세하게 입체적으로 묘사해줘`,
+        });
+
+        chatGptAPI(data);
+      });
+
+      $happeningButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        data.push({
+          role: "user",
+          content: `이 소설에서 벌어지는 주요한 에피소드 하나를 250자 이내로 설정해줘`,
+        });
+
+        chatGptAPI(data);
+      });
+
+      function chatGptAPI(data) {
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+          redirect: "follow",
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            // console.log(res)
+            // console.log(res.choices[0].message.content)
+            let answer = res.choices[0].message.content;
+
+            // 화면에 답변 표시
+            let li = document.createElement("li");
+            li.innerText = answer;
+            $contents.appendChild(li);
+
+            // 대화 데이터에 답변 추가
+            data.push({
+              role: "assistant",
+              content: answer,
+            });
+          });
+        // 아래 코드는 fetch 성공, 실패, 통신 중 여부와 상관없이 실행됩니다. 비동기에요.
+        console.log("hello world");
+      }
+    </script>
+  </body>
+</html>
