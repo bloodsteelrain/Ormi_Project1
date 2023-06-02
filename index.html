@@ -3,16 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <title>chat</title>
+    <script
+      src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <div>
-      <form>
-        <input type="text" id="topicInput" placeholder="소재" />
-        <input type="text" id="genreInput" placeholder="장르" />
-        <button type="submit">입력</button>
-      </form>
-      <button id="characterButton">등장인물</button>
-      <button id="happeningButton">에피소드</button>
+      <span style="float: right">
+        <a onClick="window.location.reload()" style="cursor: pointer">
+          <i class="fa-solid fa-arrows-rotate"></i> </a
+      ></span>
+      <div class="container">
+        <ul class="plot-container"></ul>
+        <form>
+          <input type="text" id="topicInput" placeholder="소재" />
+          <input type="text" id="genreInput" placeholder="장르" />
+          <button type="submit">입력</button>
+        </form>
+      </div>
+      <button id="characterButton" disabled>등장인물</button>
+      <button id="happeningButton" disabled>에피소드</button>
+      <div id="loading">
+        <i class="fa-solid fa-loader"></i>
+        로딩 중입니다. 20 ~ 30초의 시간이 소요됩니다.
+      </div>
       <div id="contents"></div>
     </div>
     <script>
@@ -22,6 +38,7 @@
       let $contents = document.querySelector("#contents");
       let $characterButton = document.querySelector("#characterButton");
       let $happeningButton = document.querySelector("#happeningButton");
+      let $plotContainer = document.querySelector(".plot-container");
 
       // chatGPT API
       let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
@@ -31,7 +48,7 @@
         {
           role: "system",
           content:
-            "assistant는 모든 장르에 해박하고 대중적인 문체를 가진 소설가이다.",
+            "assistant는 다양한 장르에 대한 지식과 이해를 기반으로 보조 작가 역할을 수행하는 소설가이다.",
         },
       ];
 
@@ -56,7 +73,13 @@
           content: `소재: ${userInputTopic}, 장르: ${userInputGenre}의 소설 플롯 300자 내외로 작성해줘. 다음과 같은 형식으로 답변을 줘. 형식: '제목 : 작성한 제목\n설정 : 100자 이내의 작성한 내용의 배경 설정\n플롯 : 작성한 플롯 내용' `,
         });
 
-        chatGptAPI(data);
+        chatGptAPI(data, (answer) => {
+          $characterButton.removeAttribute("disabled");
+          // 화면에 답변 표시
+          let li = document.createElement("li");
+          li.innerText = answer;
+          $plotContainer.appendChild(li);
+        });
       });
 
       // 등장인물 버튼 누를시
@@ -67,7 +90,13 @@
           content: `이 소설의 등장인물을 2명까지 세세하게 입체적으로 묘사해줘`,
         });
 
-        chatGptAPI(data);
+        chatGptAPI(data, (answer) => {
+          $happeningButton.removeAttribute("disabled");
+          // 화면에 답변 표시
+          let li = document.createElement("li");
+          li.innerText = answer;
+          $plotContainer.appendChild(li);
+        });
       });
 
       // 에피소드 버튼 누를시
@@ -75,14 +104,22 @@
         e.preventDefault();
         data.push({
           role: "user",
-          content: `이 소설에서 벌어지는 주요한 에피소드 하나를 250자 이내로 설정해줘`,
+          content: `이 소설에서 벌어지는 주요한 에피소드 하나를 300자 이내로 작성해줘`,
         });
 
-        chatGptAPI(data);
+        chatGptAPI(data, (answer) => {
+          // 화면에 답변 표시
+          let li = document.createElement("li");
+          li.innerText = answer;
+          $plotContainer.appendChild(li);
+        });
       });
 
       // chatGPT API에게 질문에 대한 답 요청
-      function chatGptAPI(data) {
+      function chatGptAPI(data, callback) {
+        // 로딩 이미지 표시
+        document.querySelector("#loading").style.display = "block";
+
         fetch(url, {
           method: "POST",
           headers: {
@@ -97,16 +134,15 @@
             // console.log(res.choices[0].message.content)
             let answer = res.choices[0].message.content;
 
-            // 화면에 답변 표시
-            let li = document.createElement("li");
-            li.innerText = answer;
-            $contents.appendChild(li);
-
             // 대화 데이터에 답변 추가
             data.push({
               role: "assistant",
               content: answer,
             });
+            // 로딩 이미지 숨김
+            document.querySelector("#loading").style.display = "none";
+
+            callback(answer);
           });
         // 아래 코드는 fetch 성공, 실패, 통신 중 여부와 상관없이 실행됩니다. 비동기에요.
         console.log("실행 확인");
