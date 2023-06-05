@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Dovemayo-Medium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/Dovemayo-Medium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   height: 100vh;
   margin: 0;
@@ -19,6 +27,8 @@ ul {
   border: 1px solid #ccc;
   padding: 5px;
   word-break: keep-all;
+  line-height: 150%;
+  font-family: "Dovemayo-Medium";
 }
 
 form {
@@ -46,6 +56,16 @@ button {
 button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.detailContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+#characterContainer,
+#happeningContainer {
+  width: 45vw;
 }
 
 ul {

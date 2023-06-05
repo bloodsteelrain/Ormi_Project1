@@ -2,7 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <title>chat</title>
+    <title>당신의 소설 어시스턴트</title>
     <script
       src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
       crossorigin="anonymous"
@@ -16,29 +16,41 @@
           <i class="fa-solid fa-arrows-rotate"></i> </a
       ></span>
       <div class="container">
-        <ul class="plot-container"></ul>
-        <form>
-          <input type="text" id="topicInput" placeholder="소재" />
-          <input type="text" id="genreInput" placeholder="장르" />
-          <button type="submit">입력</button>
-        </form>
+        <ul class="plotContainer"></ul>
+        <div class="inputArea">
+          <form>
+            <input type="text" id="topicInput" placeholder="소재" />
+            <input type="text" id="genreInput" placeholder="장르" />
+            <button type="submit">입력</button>
+          </form>
+          <div id="inputText"></div>
+        </div>
       </div>
-      <button id="characterButton" disabled>등장인물</button>
-      <button id="happeningButton" disabled>에피소드</button>
+      <div class="detailContainer">
+        <div class="characterSector">
+          <button id="characterButton" disabled>등장인물</button>
+          <ul id="characterContainer"></ul>
+        </div>
+        <div class="happeningSector">
+          <button id="happeningButton" disabled>에피소드</button>
+          <ul id="happeningContainer"></ul>
+        </div>
+      </div>
       <div id="loading">
         <i class="fa-solid fa-loader"></i>
         로딩 중입니다. 20 ~ 30초의 시간이 소요됩니다.
       </div>
-      <div id="contents"></div>
     </div>
     <script>
+      let $plotContainer = document.querySelector(".plotContainer");
       let $topicInput = document.querySelector("#topicInput");
       let $genreInput = document.querySelector("#genreInput");
       let $button = document.querySelector("button");
-      let $contents = document.querySelector("#contents");
+      let $inputText = document.querySelector("#inputText");
       let $characterButton = document.querySelector("#characterButton");
       let $happeningButton = document.querySelector("#happeningButton");
-      let $plotContainer = document.querySelector(".plot-container");
+      let $characterContainer = document.querySelector("#characterContainer");
+      let $happeningContainer = document.querySelector("#happeningContainer");
 
       // chatGPT API
       let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
@@ -60,12 +72,12 @@
         userInputGenre = $genreInput.value;
         $genreInput.value = "";
 
-        let content = `소재: ${userInputTopic}, 장르: ${userInputGenre}`;
-
         // 화면에 입력한 소재와 장르 표시
-        let li = document.createElement("li");
-        li.innerText = content;
-        $contents.appendChild(li);
+        let li1 = document.createElement("li");
+        li1.innerText = `소재: ${userInputTopic}`;
+        let li2 = document.createElement("li");
+        li2.innerText = `장르: ${userInputGenre}`;
+        $inputText.append(li1, li2);
 
         // data에 질문 추가
         data.push({
@@ -95,7 +107,7 @@
           // 화면에 답변 표시
           let li = document.createElement("li");
           li.innerText = answer;
-          $plotContainer.appendChild(li);
+          $characterContainer.appendChild(li);
         });
       });
 
@@ -111,7 +123,7 @@
           // 화면에 답변 표시
           let li = document.createElement("li");
           li.innerText = answer;
-          $plotContainer.appendChild(li);
+          $happeningContainer.appendChild(li);
         });
       });
 
