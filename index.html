@@ -10,7 +10,10 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <div>
+    <header>
+      <h1>당신의 소설 어시스턴트</h1>
+    </header>
+    <div class="main">
       <span style="float: right">
         <a onClick="window.location.reload()" style="cursor: pointer">
           <i class="fa-solid fa-arrows-rotate"></i> </a
@@ -26,21 +29,26 @@
           <div id="inputText"></div>
         </div>
       </div>
+      <div id="loading">
+        <i class="fa-solid fa-loader"></i>
+        로딩 중입니다. 20 ~ 30초의 시간이 소요됩니다.
+      </div>
       <div class="detailContainer">
+        <button id="characterButton" disabled>등장인물</button>
         <div class="characterSector">
-          <button id="characterButton" disabled>등장인물</button>
-          <ul id="characterContainer"></ul>
+          <ul id="characterContainer1"></ul>
+          <ul id="characterContainer2"></ul>
         </div>
         <div class="happeningSector">
           <button id="happeningButton" disabled>에피소드</button>
           <ul id="happeningContainer"></ul>
         </div>
       </div>
-      <div id="loading">
-        <i class="fa-solid fa-loader"></i>
-        로딩 중입니다. 20 ~ 30초의 시간이 소요됩니다.
-      </div>
     </div>
+    <footer>
+      <p>Copyright 2023. Bloodsteelrain. All rights reserved.</p>
+    </footer>
+
     <script>
       let $plotContainer = document.querySelector(".plotContainer");
       let $topicInput = document.querySelector("#topicInput");
@@ -49,7 +57,8 @@
       let $inputText = document.querySelector("#inputText");
       let $characterButton = document.querySelector("#characterButton");
       let $happeningButton = document.querySelector("#happeningButton");
-      let $characterContainer = document.querySelector("#characterContainer");
+      let $characterContainer1 = document.querySelector("#characterContainer1");
+      let $characterContainer2 = document.querySelector("#characterContainer2");
       let $happeningContainer = document.querySelector("#happeningContainer");
 
       // chatGPT API
@@ -99,15 +108,20 @@
         e.preventDefault();
         data.push({
           role: "user",
-          content: `이 소설의 등장인물을 2명까지 세세하게 입체적으로 묘사해줘`,
+          content: `이 소설의 등장인물을 2명까지 세세하게 입체적으로 묘사해줘. 형식은 '등장인물1\n이름: 등장인물 이름\n등장인물 설명\n\n등장인물2\n이름: 등장인물 이름\n등장인물 설명\n' 으로 해줘`,
         });
 
         chatGptAPI(data, (answer) => {
           $happeningButton.removeAttribute("disabled");
           // 화면에 답변 표시
-          let li = document.createElement("li");
-          li.innerText = answer;
-          $characterContainer.appendChild(li);
+          let li1 = document.createElement("li");
+          li1.innerText = answer.split("\n\n")[0];
+          $characterContainer1.appendChild(li1);
+
+          let li2 = document.createElement("li");
+          li2.innerText = answer.split("\n\n")[1];
+          $characterContainer2.appendChild(li2);
+          console.log(answer);
         });
       });
 
