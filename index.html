@@ -44,6 +44,12 @@
           <ul id="happeningContainer"></ul>
         </div>
       </div>
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p id="modalText"></p>
+        </div>
+      </div>
     </div>
     <footer>
       <p>Copyright 2023. Bloodsteelrain. All rights reserved.</p>
@@ -100,6 +106,7 @@
           let li = document.createElement("li");
           li.innerText = answer;
           $plotContainer.appendChild(li);
+          openModal(answer);
         });
       });
 
@@ -172,6 +179,21 @@
           });
         // 아래 코드는 fetch 성공, 실패, 통신 중 여부와 상관없이 실행됩니다. 비동기에요.
         console.log("실행 확인");
+      }
+
+      // 답변 모달 열기
+      function openModal(answer) {
+        // 모달 텍스트 설정
+        document.querySelector("#modalText").textContent = answer;
+        // 모달 열기
+        document.querySelector("#modal").style.display = "block";
+        // 모달이 나타난 후에 모달 닫기 버튼에 이벤트 처리를 추가
+        document.querySelector(".close").addEventListener("click", closeModal);
+      }
+
+      // 답변 모달 닫기
+      function closeModal() {
+        document.querySelector("#modal").style.display = "none";
       }
     </script>
   </body>
