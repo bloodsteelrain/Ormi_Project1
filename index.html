@@ -10,14 +10,20 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <!-- header -->
     <header>
       <h1>당신의 소설 어시스턴트</h1>
     </header>
+    <!-- //header -->
+    <!-- main -->
     <div class="main">
+      <!-- 새로고침 버튼 -->
       <span style="float: right">
         <a onClick="window.location.reload()" style="cursor: pointer">
           <i class="fa-solid fa-arrows-rotate"></i> </a
       ></span>
+      <!-- //새로고침 버튼 -->
+      <!-- 소재 장르 파트 -->
       <div class="container">
         <ul class="plotContainer"></ul>
         <div class="inputArea">
@@ -29,10 +35,13 @@
           <div id="inputText"></div>
         </div>
       </div>
+      <!-- //소재 장르 파트 -->
+      <!-- 로딩 -->
       <div id="loading">
         <i class="fa-solid fa-loader"></i>
         로딩 중입니다. 20 ~ 30초의 시간이 소요됩니다.
       </div>
+      <!-- //로딩 -->
       <div class="detailContainer">
         <button id="characterButton" disabled>등장인물</button>
         <div class="characterSector">
@@ -44,28 +53,38 @@
           <ul id="happeningContainer"></ul>
         </div>
       </div>
+      <!-- 모달 -->
       <div id="modal" class="modal">
-        <div class="modal-content">
+        <div class="modalContent">
           <span class="close">&times;</span>
           <p id="modalText"></p>
         </div>
       </div>
+      <!-- //모달 -->
     </div>
+    <!-- //main -->
+    <!-- footer -->
     <footer>
       <p>Copyright 2023. Bloodsteelrain. All rights reserved.</p>
     </footer>
+    <!-- //footer -->
 
     <script>
-      let $plotContainer = document.querySelector(".plotContainer");
-      let $topicInput = document.querySelector("#topicInput");
-      let $genreInput = document.querySelector("#genreInput");
-      let $button = document.querySelector("button");
-      let $inputText = document.querySelector("#inputText");
-      let $characterButton = document.querySelector("#characterButton");
-      let $happeningButton = document.querySelector("#happeningButton");
-      let $characterContainer1 = document.querySelector("#characterContainer1");
-      let $characterContainer2 = document.querySelector("#characterContainer2");
-      let $happeningContainer = document.querySelector("#happeningContainer");
+      const $plotContainer = document.querySelector(".plotContainer");
+      const $topicInput = document.querySelector("#topicInput");
+      const $genreInput = document.querySelector("#genreInput");
+      const $button = document.querySelector("button");
+      const $inputText = document.querySelector("#inputText");
+      const $characterButton = document.querySelector("#characterButton");
+      const $happeningButton = document.querySelector("#happeningButton");
+      const $characterContainer1 = document.querySelector(
+        "#characterContainer1"
+      );
+      const $characterContainer2 = document.querySelector(
+        "#characterContainer2"
+      );
+      const $happeningContainer = document.querySelector("#happeningContainer");
+      const $modalContent = document.querySelector(".modalContent");
 
       // chatGPT API
       let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
@@ -108,6 +127,8 @@
           $plotContainer.appendChild(li);
           openModal(answer);
         });
+
+        Loading($modalContent);
       });
 
       // 등장인물 버튼 누를시
@@ -190,10 +211,26 @@
         // 모달이 나타난 후에 모달 닫기 버튼에 이벤트 처리를 추가
         document.querySelector(".close").addEventListener("click", closeModal);
       }
-
       // 답변 모달 닫기
       function closeModal() {
         document.querySelector("#modal").style.display = "none";
+      }
+
+      // 로딩 이미지 생성
+      function Loading(loadingLocation) {
+        let loadingImg = document.createElement("div");
+        loadingImg.id = "loadingImg";
+        loadingImg.innerHTML = '<img src="/img/Spinner-1s-200px.gif">';
+
+        // 로딩중 레이어 추가
+        loadingLocation.appendChild(loadingImg);
+        // 로딩중 이미지 표시
+        loadingImg.style.display = "block";
+      }
+
+      // 로딩 이미지 숨기기
+      function closeLoading() {
+        document.querySelector("#loadingImg").style.display = "none";
       }
     </script>
   </body>
