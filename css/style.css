@@ -89,6 +89,7 @@ button:disabled {
 }
 
 .characterSector {
+  position: relative;
   display: flex;
   justify-content: center;
 }
@@ -99,6 +100,7 @@ button:disabled {
 }
 
 .happeningSector {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -112,17 +114,6 @@ ul {
 
 li {
   margin-bottom: 10px;
-}
-
-#loading {
-  display: none;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-#loading i {
-  width: 30px;
-  height: 30px;
 }
 
 /* 모달 스타일 */
@@ -139,12 +130,14 @@ li {
 }
 
 .modalContent {
+  position: relative;
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
   max-width: 500px;
+  min-height: 450px;
   border-radius: 3%;
   font-family: "Dovemayo-Medium";
   font-size: 20px;
@@ -172,13 +165,12 @@ li {
 }
 
 #loadingImg {
-  position: fixed;
+  position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
 #loadingImg img {
-  position: relative;
   display: block;
   margin: 0 auto;
 }
