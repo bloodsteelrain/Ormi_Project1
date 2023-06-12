@@ -3,10 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <title>당신의 소설 어시스턴트</title>
-    <script
-      src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
-      crossorigin="anonymous"
-    ></script>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -17,17 +13,11 @@
     <!-- //header -->
     <!-- main -->
     <div class="main">
-      <!-- 새로고침 버튼 -->
-      <span style="float: right">
-        <a onClick="window.location.reload()" style="cursor: pointer">
-          <i class="fa-solid fa-arrows-rotate"></i> </a
-      ></span>
-      <!-- //새로고침 버튼 -->
       <!-- 소재 장르 파트 -->
       <div class="container">
         <ul class="plotContainer"></ul>
         <div class="inputArea">
-          <form>
+          <form id="inputForm">
             <input type="text" id="topicInput" placeholder="소재" />
             <input type="text" id="genreInput" placeholder="장르" />
             <button type="submit">입력</button>
@@ -52,6 +42,10 @@
         <div class="modalContent">
           <span class="close">&times;</span>
           <p id="modalText"></p>
+          <div class="modalButtons">
+            <button id="restartButton">다시하기</button>
+            <button id="continueButton">이어가기</button>
+          </div>
         </div>
       </div>
       <!-- //모달 -->
@@ -81,6 +75,8 @@
       const $happeningSector = document.querySelector(".happeningSector");
       const $happeningContainer = document.querySelector("#happeningContainer");
       const $modalContent = document.querySelector(".modalContent");
+      const $restartButton = document.querySelector("#restartButton");
+      const $continueButton = document.querySelector("#continueButton");
 
       // chatGPT API
       let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
@@ -117,7 +113,7 @@
 
         // modal을 띄우고 답변 표시
         openModal();
-        Loading($modalContent);
+        loading($modalContent);
 
         chatGptAPI(data, (answer) => {
           $characterButton.removeAttribute("disabled");
@@ -127,6 +123,7 @@
           $plotContainer.appendChild(li);
           // 모달 텍스트 설정
           document.querySelector("#modalText").textContent = answer;
+          document.querySelector(".modalButtons").style.display = "block";
         });
       });
 
@@ -138,7 +135,7 @@
           content: `이 소설의 등장인물을 2명까지 세세하게 입체적으로 묘사해줘. 형식은 '등장인물1\n이름: 등장인물 이름\n등장인물 설명\n\n등장인물2\n이름: 등장인물 이름\n등장인물 설명\n' 으로 해줘`,
         });
 
-        Loading($characterSector);
+        loading($characterSector);
 
         chatGptAPI(data, (answer) => {
           $happeningButton.removeAttribute("disabled");
@@ -162,7 +159,7 @@
           content: `이 소설에서 벌어지는 주요한 에피소드 하나를 300자 이내로 작성해줘`,
         });
 
-        Loading($happeningSector);
+        loading($happeningSector);
 
         chatGptAPI(data, (answer) => {
           // 화면에 답변 표시
@@ -219,8 +216,18 @@
         document.querySelector("#modal").style.display = "none";
       }
 
+      // 다시하기 버튼 누를시
+      $restartButton.addEventListener("click", function () {
+        window.location.reload();
+      });
+
+      // 이어가기 버튼 누를시
+      $continueButton.addEventListener("click", function () {
+        closeModal();
+      });
+
       // 로딩 이미지 생성
-      function Loading(loadingLocation) {
+      function loading(loadingLocation) {
         let loadingImg = document.createElement("div");
         loadingImg.id = "loadingImg";
         loadingImg.innerHTML = '<img src="/img/Spinner-1s-200px.gif">';
