@@ -11,6 +11,42 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
+/* Navigation */
+nav {
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.logo {
+  color: #fff;
+  font-size: 24px;
+  margin-right: 10px;
+  text-decoration: none;
+}
+
+.menu {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.menu li {
+  margin: 10px;
+}
+
+.menu li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.github-icon {
+  color: #fff;
+  font-size: 30px;
+}
 
 header {
   background-image: url(/img/header_image.jpg);
@@ -42,7 +78,7 @@ footer {
   padding: 10px;
 }
 
-ul {
+.main ul {
   width: 70vw;
   height: 200px;
   max-height: 200px;
