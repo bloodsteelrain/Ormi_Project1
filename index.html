@@ -76,6 +76,7 @@
         </div>
       </div>
       <!-- //모달 -->
+      <button id="topButton"><i class="fa-solid fa-arrow-up"></i></button>
     </div>
     <!-- //main -->
     <!-- footer -->
@@ -104,6 +105,7 @@
       const $modalContent = document.querySelector(".modalContent");
       const $restartButton = document.querySelector("#restartButton");
       const $continueButton = document.querySelector("#continueButton");
+      const $topButton = document.querySelector("#topButton");
 
       // chatGPT API
       let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
@@ -251,6 +253,28 @@
       // 이어가기 버튼 누를시
       $continueButton.addEventListener("click", function () {
         closeModal();
+      });
+
+      // 스크롤 이벤트리스너 등록
+      window.addEventListener("scroll", function () {
+        // 현재 스크롤 위치 확인
+        let scrollPosition =
+          window.pageYOffset || document.documentElement.scrollTop;
+
+        // 스크롤 위치가 200px 이상일 때 'Top' 버튼 보이기
+        if (scrollPosition >= 200) {
+          $topButton.style.display = "block";
+        } else {
+          $topButton.style.display = "none";
+        }
+      });
+
+      // 'Top' 버튼 클릭 시 페이지 맨 위로 스크롤 이동
+      $topButton.addEventListener("click", function () {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
       });
 
       // 로딩 이미지 생성
