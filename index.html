@@ -16,6 +16,7 @@
         ><i class="fa-solid fa-book-journal-whills"></i> Novel Maker</a
       >
       <ul class="menu">
+        <li><a href="#header">Home</a></li>
         <li><a href="#inputForm">소재 장르</a></li>
         <li><a href="#characterButton">등장인물</a></li>
         <li><a href="#happeningButton">에피소드</a></li>
@@ -31,7 +32,7 @@
     </nav>
     <!-- //navigation -->
     <!-- header -->
-    <header>
+    <header id="header">
       <h1>
         <p>당신만의 소설을 제작하기 위한 어시스턴트, 'Novel Maker' 입니다.</p>
         <p>원하는 소재와 장르로 취향에 맞는 소설을 만들어보세요!</p>
@@ -40,6 +41,33 @@
     <!-- //header -->
     <!-- main -->
     <div class="main">
+      <div class="description">
+        <p>당신이 원하는 소재와 장르로 소설을 작성할 기반을 마련해드립니다!</p>
+        <p>플롯부터 등장인물, 사건까지 원하는 설정을 얻어보세요.</p>
+        <div class="step-container">
+          <div class="step">
+            <div class="step-icon">1</div>
+            <div class="step-text">원하는 소재와 장르 입력</div>
+          </div>
+          <i class="fa-solid fa-angle-right"></i>
+          <div class="step">
+            <div class="step-icon">2</div>
+            <div class="step-text">
+              생성된 플롯 확인 후 다시하기/이어하기 선택
+            </div>
+          </div>
+          <i class="fa-solid fa-angle-right"></i>
+          <div class="step">
+            <div class="step-icon">3</div>
+            <div class="step-text">플롯 기반 등장인물 생성</div>
+          </div>
+          <i class="fa-solid fa-angle-right"></i>
+          <div class="step">
+            <div class="step-icon">4</div>
+            <div class="step-text">플롯, 등장인물 기반 에피소드 생성</div>
+          </div>
+        </div>
+      </div>
       <!-- 소재 장르 파트 -->
       <div class="container">
         <ul class="plotContainer"></ul>
@@ -258,9 +286,7 @@
       // 스크롤 이벤트리스너 등록
       window.addEventListener("scroll", function () {
         // 현재 스크롤 위치 확인
-        let scrollPosition =
-          window.pageYOffset || document.documentElement.scrollTop;
-
+        let scrollPosition = window.pageYOffset;
         // 스크롤 위치가 200px 이상일 때 'Top' 버튼 보이기
         if (scrollPosition >= 200) {
           $topButton.style.display = "block";
@@ -292,6 +318,21 @@
       function closeLoading() {
         document.querySelector("#loadingImg").remove();
       }
+
+      // 모든 #링크에 대해 스무스 스크롤 이벤트 리스너 등록
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          // 클릭한 링크의 href 값을 가져옴
+          const target = document.querySelector(this.getAttribute("href"));
+
+          // 스크롤 애니메이션 적용
+          target.scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
     </script>
   </body>
 </html>

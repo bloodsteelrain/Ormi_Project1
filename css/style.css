@@ -20,6 +20,7 @@ body {
   background-color: #f5f5f5;
   font-family: "SeoulNamsanM";
 }
+
 /* Navigation */
 nav {
   background-color: rgba(121, 83, 70, 0.9);
@@ -47,7 +48,7 @@ nav {
 }
 
 .menu li {
-  margin: 10px;
+  margin: 10px 20px 10px 20px;
 }
 
 .menu li a {
@@ -65,6 +66,7 @@ nav {
   font-size: 30px;
 }
 
+/* header */
 header {
   background-image: url(/img/header_image.jpg);
   background-size: cover;
@@ -75,9 +77,10 @@ header {
   padding: 20px;
   display: flex;
   justify-content: start;
-  align-items: baseline;
+  align-items: center;
 }
 
+/* footer */
 footer {
   background-color: #795346;
   color: #f5f5f5;
@@ -89,6 +92,61 @@ footer {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+}
+
+.description {
+  padding: 50px;
+}
+
+.description p {
+  font-weight: bold;
+  font-size: 30px;
+  text-align: center;
+  word-break: keep-all;
+  color: #795346;
+}
+
+.step-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.step-container i {
+  margin: 0 20px 0 20px;
+  font-size: 30px;
+  color: #795346;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 20px 0;
+  flex-direction: column;
+  width: 272px;
+}
+
+.step-icon {
+  width: 100px;
+  height: 100px;
+  background-color: #795346;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f5f5f5;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.step-text {
+  margin-top: 20px;
+  height: 40px;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  word-break: keep-all;
 }
 
 .container {
@@ -104,7 +162,7 @@ footer {
   max-height: 200px;
   overflow-y: auto;
   border: 1px solid #ccc;
-  padding: 5px;
+  padding: 10px;
   word-break: keep-all;
   line-height: 150%;
   font-family: "Dovemayo-Medium";
@@ -126,7 +184,7 @@ input[type="text"] {
 button {
   padding: 10px 20px;
   background-color: #795346;
-  color: #fff;
+  color: #f5f5f5;
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -187,7 +245,7 @@ li {
 
 .modalContent {
   position: relative;
-  background-color: #fefefe;
+  background-color: #f5f5f5;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
