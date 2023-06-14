@@ -185,7 +185,7 @@ $topButton.addEventListener("click", function () {
 function loading(loadingLocation) {
   const loadingImg = document.createElement("div");
   loadingImg.className = "loadingImg";
-  loadingImg.innerHTML = '<img src="./img/Spinner-1s-200px.gif">';
+  loadingImg.innerHTML = '<img src="./img/loading_image.gif">';
   // 로딩중 레이어 추가
   loadingLocation.appendChild(loadingImg);
   // 로딩중 이미지 표시
