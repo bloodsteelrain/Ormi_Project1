@@ -1,7 +1,7 @@
 const $plotContainer = document.querySelector(".plotContainer");
 const $topicInput = document.querySelector("#topicInput");
 const $genreInput = document.querySelector("#genreInput");
-const $button = document.querySelector("button");
+const $plotButton = document.querySelector(".plotButton");
 const $inputText = document.querySelector("#inputText");
 const $characterButton = document.querySelector("#characterButton");
 const $happeningButton = document.querySelector("#happeningButton");
@@ -19,7 +19,7 @@ const $topButton = document.querySelector("#topButton");
 const url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
 
 // 사전 저장된 정보 (assistant의 역할)
-let data = [
+const data = [
   {
     role: "system",
     content:
@@ -28,7 +28,7 @@ let data = [
 ];
 
 // 입력 버튼 클릭 이벤트
-$button.addEventListener("click", (e) => {
+$plotButton.addEventListener("click", (e) => {
   e.preventDefault();
   userInputTopic = $topicInput.value;
   $topicInput.value = "";
@@ -36,9 +36,9 @@ $button.addEventListener("click", (e) => {
   $genreInput.value = "";
 
   // 화면에 입력한 소재와 장르 표시
-  let topicList = document.createElement("li");
+  const topicList = document.createElement("li");
   topicList.innerText = `소재: ${userInputTopic}`;
-  let genreList = document.createElement("li");
+  const genreList = document.createElement("li");
   genreList.innerText = `장르: ${userInputGenre}`;
   $inputText.append(topicList, genreList);
 
@@ -55,7 +55,7 @@ $button.addEventListener("click", (e) => {
   chatGptAPI(data, (answer) => {
     $characterButton.removeAttribute("disabled");
     // 화면에 답변 표시
-    let plotAnswer = document.createElement("li");
+    const plotAnswer = document.createElement("li");
     plotAnswer.innerText = answer;
     $plotContainer.appendChild(plotAnswer);
     // 모달 텍스트 설정
@@ -77,11 +77,11 @@ $characterButton.addEventListener("click", (e) => {
   chatGptAPI(data, (answer) => {
     $happeningButton.removeAttribute("disabled");
     // 화면에 답변 표시
-    let characterAnswer1 = document.createElement("li");
+    const characterAnswer1 = document.createElement("li");
     characterAnswer1.innerText = answer.split("\n\n")[0];
     $characterContainer1.appendChild(characterAnswer1);
 
-    let characterAnswer2 = document.createElement("li");
+    const characterAnswer2 = document.createElement("li");
     characterAnswer2.innerText = answer.split("\n\n")[1];
     $characterContainer2.appendChild(characterAnswer2);
     console.log(answer);
@@ -100,7 +100,7 @@ $happeningButton.addEventListener("click", (e) => {
 
   chatGptAPI(data, (answer) => {
     // 화면에 답변 표시
-    let happeningAnswer = document.createElement("li");
+    const happeningAnswer = document.createElement("li");
     happeningAnswer.innerText = answer;
     $happeningContainer.appendChild(happeningAnswer);
   });
@@ -118,7 +118,7 @@ function chatGptAPI(data, callback) {
   })
     .then((res) => res.json())
     .then((res) => {
-      let answer = res.choices[0].message.content;
+      const answer = res.choices[0].message.content;
 
       // 대화 데이터에 답변 추가
       data.push({
@@ -164,7 +164,7 @@ $continueButton.addEventListener("click", function () {
 // 스크롤 이벤트리스너 등록
 window.addEventListener("scroll", function () {
   // 현재 스크롤 위치 확인
-  let scrollPosition = window.scrollY;
+  const scrollPosition = window.scrollY;
   // 스크롤 위치가 200px 이상일 때 '위로' 버튼 보이기
   if (scrollPosition >= 200) {
     $topButton.style.display = "block";
@@ -183,7 +183,7 @@ $topButton.addEventListener("click", function () {
 
 // 로딩 이미지 생성
 function loading(loadingLocation) {
-  let loadingImg = document.createElement("div");
+  const loadingImg = document.createElement("div");
   loadingImg.id = "loadingImg";
   loadingImg.innerHTML = '<img src="./img/Spinner-1s-200px.gif">';
   // 로딩중 레이어 추가
