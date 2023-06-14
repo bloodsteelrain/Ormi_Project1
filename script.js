@@ -16,7 +16,7 @@ const $continueButton = document.querySelector("#continueButton");
 const $topButton = document.querySelector("#topButton");
 
 // chatGPT API
-let url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
+const url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
 
 // 사전 저장된 정보 (assistant의 역할)
 let data = [
@@ -185,7 +185,7 @@ $topButton.addEventListener("click", function () {
 function loading(loadingLocation) {
   let loadingImg = document.createElement("div");
   loadingImg.id = "loadingImg";
-  loadingImg.innerHTML = '<img src="/img/Spinner-1s-200px.gif">';
+  loadingImg.innerHTML = '<img src="./img/Spinner-1s-200px.gif">';
   // 로딩중 레이어 추가
   loadingLocation.appendChild(loadingImg);
   // 로딩중 이미지 표시
