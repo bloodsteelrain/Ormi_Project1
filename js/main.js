@@ -1,3 +1,4 @@
+// 변수 정의
 const $plotContainer = document.querySelector(".plotContainer");
 const $topicInput = document.querySelector(".topicInput");
 const $genreInput = document.querySelector(".genreInput");
@@ -108,54 +109,6 @@ $happeningButton.addEventListener("click", (e) => {
   });
 });
 
-// chatGPT API에게 질문에 대한 답 요청
-function chatGptAPI(data, callback) {
-  fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-    redirect: "follow",
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      const answer = res.choices[0].message.content;
-
-      // 대화 데이터에 답변 추가
-      data.push({
-        role: "assistant",
-        content: answer,
-      });
-
-      closeLoading();
-      // 모달 텍스트 설정
-      $modalText.style.display = "block";
-      $modalText.textContent = answer;
-      $modalButtons.style.display = "flex";
-      callback(answer);
-    })
-    .catch((error) => {
-      console.error("Fetch 에러:", error);
-      closeLoading();
-      alert("데이터를 불러오는 데 실패했습니다");
-    });
-  // 실행 확인용 로그
-  console.log("실행 확인");
-}
-
-// 답변 모달 열기
-function openModal() {
-  // 모달 열기
-  document.querySelector(".modal").style.display = "block";
-  // 모달이 나타난 후에 모달 닫기 버튼 활성화
-  document.querySelector(".close").addEventListener("click", closeModal);
-}
-
-// 답변 모달 닫기
-function closeModal() {
-  document.querySelector(".modal").style.display = "none";
-}
 // 이어가기 버튼 클릭 이벤트
 $continueButton.addEventListener("click", function () {
   closeModal();
@@ -168,66 +121,4 @@ $continueButton.addEventListener("click", function () {
 $restartButton.addEventListener("click", function () {
   clearAnswers($plotContainer, $modalText);
   closeModal();
-});
-
-// 직전 질문과 답변 제거
-function clearAnswers(container1, container2) {
-  // 답변 표시 지우기
-  container1.innerHTML = "";
-  container2.innerHTML = "";
-  $modalButtons.style.display = "none";
-
-  // data 배열에서 마지막 두 항목 제거하기
-  data.splice(data.length - 4, 4);
-}
-
-// 스크롤 이벤트리스너 등록
-window.addEventListener("scroll", function () {
-  // 현재 스크롤 위치 확인
-  const scrollPosition = window.scrollY;
-  // 스크롤 위치가 200px 이상일 때 '위로' 버튼 보이기
-  if (scrollPosition >= 200) {
-    $topButton.style.display = "block";
-  } else {
-    $topButton.style.display = "none";
-  }
-});
-
-// '위로' 버튼 클릭 시 페이지 맨 위로 스크롤 이동
-$topButton.addEventListener("click", function () {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-});
-
-// 로딩 이미지 생성
-function loading(loadingLocation) {
-  const loadingImg = document.createElement("div");
-  loadingImg.className = "loadingImg";
-  loadingImg.innerHTML = '<img src="./img/loading_image.gif">';
-  // 로딩중 레이어 추가
-  loadingLocation.appendChild(loadingImg);
-  // 로딩중 이미지 표시
-  loadingImg.style.display = "block";
-}
-
-// 로딩 이미지 숨기기
-function closeLoading() {
-  document.querySelector(".loadingImg").remove();
-}
-
-// 모든 #링크에 대해 스무스 스크롤 이벤트리스너 등록
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-
-    // 클릭한 링크의 href 값을 가져오기
-    const target = document.querySelector(this.getAttribute("href"));
-
-    // 스크롤 애니메이션 적용
-    target.scrollIntoView({
-      behavior: "smooth",
-    });
-  });
 });
