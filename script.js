@@ -36,11 +36,11 @@ $button.addEventListener("click", (e) => {
   $genreInput.value = "";
 
   // 화면에 입력한 소재와 장르 표시
-  let li1 = document.createElement("li");
-  li1.innerText = `소재: ${userInputTopic}`;
-  let li2 = document.createElement("li");
-  li2.innerText = `장르: ${userInputGenre}`;
-  $inputText.append(li1, li2);
+  let topicList = document.createElement("li");
+  topicList.innerText = `소재: ${userInputTopic}`;
+  let genreList = document.createElement("li");
+  genreList.innerText = `장르: ${userInputGenre}`;
+  $inputText.append(topicList, genreList);
 
   // data에 질문 추가
   data.push({
@@ -55,9 +55,9 @@ $button.addEventListener("click", (e) => {
   chatGptAPI(data, (answer) => {
     $characterButton.removeAttribute("disabled");
     // 화면에 답변 표시
-    let li = document.createElement("li");
-    li.innerText = answer;
-    $plotContainer.appendChild(li);
+    let plotAnswer = document.createElement("li");
+    plotAnswer.innerText = answer;
+    $plotContainer.appendChild(plotAnswer);
     // 모달 텍스트 설정
     document.querySelector("#modalText").textContent = answer;
     document.querySelector(".modalButtons").style.display = "block";
@@ -77,13 +77,13 @@ $characterButton.addEventListener("click", (e) => {
   chatGptAPI(data, (answer) => {
     $happeningButton.removeAttribute("disabled");
     // 화면에 답변 표시
-    let li1 = document.createElement("li");
-    li1.innerText = answer.split("\n\n")[0];
-    $characterContainer1.appendChild(li1);
+    let characterAnswer1 = document.createElement("li");
+    characterAnswer1.innerText = answer.split("\n\n")[0];
+    $characterContainer1.appendChild(characterAnswer1);
 
-    let li2 = document.createElement("li");
-    li2.innerText = answer.split("\n\n")[1];
-    $characterContainer2.appendChild(li2);
+    let characterAnswer2 = document.createElement("li");
+    characterAnswer2.innerText = answer.split("\n\n")[1];
+    $characterContainer2.appendChild(characterAnswer2);
     console.log(answer);
   });
 });
@@ -100,9 +100,9 @@ $happeningButton.addEventListener("click", (e) => {
 
   chatGptAPI(data, (answer) => {
     // 화면에 답변 표시
-    let li = document.createElement("li");
-    li.innerText = answer;
-    $happeningContainer.appendChild(li);
+    let happeningAnswer = document.createElement("li");
+    happeningAnswer.innerText = answer;
+    $happeningContainer.appendChild(happeningAnswer);
   });
 });
 
