@@ -11,6 +11,8 @@ const $characterContainer2 = document.querySelector(".characterContainer2");
 const $happeningSector = document.querySelector(".happeningSector");
 const $happeningContainer = document.querySelector(".happeningContainer");
 const $modalContent = document.querySelector(".modalContent");
+const $modalText = document.querySelector(".modalText");
+const $modalButtons = document.querySelector(".modalButtons");
 const $restartButton = document.querySelector(".restartButton");
 const $continueButton = document.querySelector(".continueButton");
 const $topButton = document.querySelector(".topButton");
@@ -59,8 +61,9 @@ $plotButton.addEventListener("click", (e) => {
     plotAnswer.innerText = answer;
     $plotContainer.appendChild(plotAnswer);
     // 모달 텍스트 설정
-    document.querySelector(".modalText").textContent = answer;
-    document.querySelector(".modalButtons").style.display = "block";
+    $modalText.style.display = "block";
+    $modalText.textContent = answer;
+    $modalButtons.style.display = "flex";
   });
 });
 
@@ -150,16 +153,33 @@ function openModal() {
 function closeModal() {
   document.querySelector(".modal").style.display = "none";
 }
-
-// 다시하기 버튼 클릭 이벤트
-$restartButton.addEventListener("click", function () {
-  window.location.reload();
-});
-
 // 이어가기 버튼 클릭 이벤트
 $continueButton.addEventListener("click", function () {
   closeModal();
+  $characterButton.focus();
+  $characterButton.scrollIntoView({ behavior: "smooth" });
 });
+
+// 다시하기 버튼 클릭 이벤트
+$restartButton.addEventListener("click", function () {
+  clearAnswers($plotContainer, $modalText);
+  closeModal();
+});
+
+// 직전 질문과 답변 제거
+function clearAnswers(container1, container2) {
+  // 답변 표시 지우기
+  container1.innerHTML = "";
+  container2.innerHTML = "";
+  $modalButtons.style.display = "none";
+
+  // data 배열에서 마지막 두 항목 제거하기
+  data.splice(data.length - 2, 2);
+
+  // 버튼 비활성화
+  $characterButton.disabled = true;
+  $happeningButton.disabled = true;
+}
 
 // 스크롤 이벤트리스너 등록
 window.addEventListener("scroll", function () {
