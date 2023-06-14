@@ -18,9 +18,9 @@
       >
       <ul class="menu">
         <li><a href="#header">Home</a></li>
-        <li><a href="#inputForm">소재/장르</a></li>
-        <li><a href="#characterButton">등장인물</a></li>
-        <li><a href="#happeningButton">에피소드</a></li>
+        <li><a href="#inputArea">소재/장르</a></li>
+        <li><a href="#characterArea">등장인물</a></li>
+        <li><a href="#happeningArea">에피소드</a></li>
       </ul>
       <span class="githubContainer">
         <a
@@ -55,59 +55,73 @@
 
           <div class="step">
             <div class="stepIcon">2</div>
-            <div class="stepText">
-              생성된 플롯 확인 후 다시하기/이어하기 선택
-            </div>
-          </div>
-          <i class="fa-solid fa-angle-right"></i>
-
-          <div class="step">
-            <div class="stepIcon">3</div>
             <div class="stepText">플롯 기반 등장인물 생성</div>
           </div>
           <i class="fa-solid fa-angle-right"></i>
 
           <div class="step">
+            <div class="stepIcon">3</div>
+            <div class="stepText">플롯, 등장인물 기반 에피소드</div>
+          </div>
+          <i class="fa-solid fa-angle-right"></i>
+
+          <div class="step">
             <div class="stepIcon">4</div>
-            <div class="stepText">플롯, 등장인물 기반 에피소드 생성</div>
+            <div class="stepText">최종 생성된 플롯, 등장인물 에피소드 확인</div>
           </div>
         </div>
       </div>
       <!-- //웹페이지 설명 -->
 
-      <!-- 소재 장르 파트 -->
-      <div class="container">
-        <ul class="plotContainer"></ul>
-        <div class="inputArea">
+      <div class="mainArea">
+        <!-- 소재 장르 파트 -->
+        <div class="inputArea" id="inputArea">
+          <p><b>Step 1.</b> 원하시는 소설의 소재와 장르를 입력해주세요</p>
+          <label for="inputForm"></label>
           <form class="inputForm" id="inputForm">
-            <input type="text" class="topicInput" placeholder="소재" />
-            <input type="text" class="genreInput" placeholder="장르" />
+            소재
+            <input
+              type="text"
+              class="topicInput"
+              placeholder="ex&#41; 모험가 길드의 몰락"
+            />
+            장르
+            <input
+              type="text"
+              class="genreInput"
+              placeholder="ex&#41; 판타지"
+            />
             <button type="submit" class="plotButton">플롯 생성</button>
           </form>
           <div class="inputText"></div>
         </div>
-      </div>
-      <!-- //소재 장르 파트 -->
-
-      <div class="detailContainer">
+        <!-- //소재 장르 파트 -->
         <!-- 등장인물 파트 -->
-        <button class="characterButton" id="characterButton" disabled>
-          등장인물
-        </button>
+        <div class="characterArea" id="characterArea">
+          <p><b>Step 2.</b> 이 소설의 등장인물을 생성해주세요</p>
+          <button class="characterButton" disabled>등장인물</button>
+        </div>
+        <!-- //등장인물 파트 -->
+        <!-- 에피소드 파트 -->
+        <div class="happeningArea" id="happeningArea">
+          <p><b>Step 3.</b> 이 소설의 에피소드 하나를 생성해주세요</p>
+          <button class="happeningButton" disabled>에피소드</button>
+        </div>
+        <!-- //에피소드 파트 -->
+      </div>
+      <!-- 설정 저장 파트 -->
+      <div class="saveArea">
+        <p><b>Step 4.</b> 생성된 모든 설정들을 확인해주세요</p>
+        <ul class="plotContainer"></ul>
         <div class="characterSector">
           <ul class="characterContainer1"></ul>
           <ul class="characterContainer2"></ul>
         </div>
-        <!-- //등장인물 파트 -->
-        <!-- 에피소드 파트 -->
         <div class="happeningSector">
-          <button class="happeningButton" id="happeningButton" disabled>
-            에피소드
-          </button>
           <ul class="happeningContainer"></ul>
         </div>
-        <!-- //에피소드 파트 -->
       </div>
+      <!-- 설정 저장 파트 -->
 
       <!-- 모달 -->
       <div class="modal">

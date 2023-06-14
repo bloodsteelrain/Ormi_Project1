@@ -8,7 +8,6 @@ const $happeningButton = document.querySelector(".happeningButton");
 const $characterSector = document.querySelector(".characterSector");
 const $characterContainer1 = document.querySelector(".characterContainer1");
 const $characterContainer2 = document.querySelector(".characterContainer2");
-const $happeningSector = document.querySelector(".happeningSector");
 const $happeningContainer = document.querySelector(".happeningContainer");
 const $modalContent = document.querySelector(".modalContent");
 const $modalText = document.querySelector(".modalText");
@@ -60,10 +59,6 @@ $plotButton.addEventListener("click", (e) => {
     const plotAnswer = document.createElement("li");
     plotAnswer.innerText = answer;
     $plotContainer.appendChild(plotAnswer);
-    // 모달 텍스트 설정
-    $modalText.style.display = "block";
-    $modalText.textContent = answer;
-    $modalButtons.style.display = "flex";
   });
 });
 
@@ -75,7 +70,10 @@ $characterButton.addEventListener("click", (e) => {
     content: `이 소설의 등장인물을 2명까지 세세하게 입체적으로 묘사해줘. 형식은 '등장인물1\n이름: 등장인물 이름\n등장인물 설명\n\n등장인물2\n이름: 등장인물 이름\n등장인물 설명\n' 으로 해줘`,
   });
 
-  loading($characterSector);
+  $modalText.innerHTML = "";
+  $modalButtons.style.display = "none";
+  openModal();
+  loading($modalContent);
 
   chatGptAPI(data, (answer) => {
     $happeningButton.removeAttribute("disabled");
@@ -83,11 +81,9 @@ $characterButton.addEventListener("click", (e) => {
     const characterAnswer1 = document.createElement("li");
     characterAnswer1.innerText = answer.split("\n\n")[0];
     $characterContainer1.appendChild(characterAnswer1);
-
     const characterAnswer2 = document.createElement("li");
     characterAnswer2.innerText = answer.split("\n\n")[1];
     $characterContainer2.appendChild(characterAnswer2);
-    console.log(answer);
   });
 });
 
@@ -99,7 +95,10 @@ $happeningButton.addEventListener("click", (e) => {
     content: `이 소설에서 벌어지는 주요한 에피소드 하나를 300자 이내로 작성해줘`,
   });
 
-  loading($happeningContainer);
+  $modalText.innerHTML = "";
+  $modalButtons.style.display = "none";
+  openModal();
+  loading($modalContent);
 
   chatGptAPI(data, (answer) => {
     // 화면에 답변 표시
@@ -130,6 +129,10 @@ function chatGptAPI(data, callback) {
       });
 
       closeLoading();
+      // 모달 텍스트 설정
+      $modalText.style.display = "block";
+      $modalText.textContent = answer;
+      $modalButtons.style.display = "flex";
       callback(answer);
     })
     .catch((error) => {
@@ -156,8 +159,9 @@ function closeModal() {
 // 이어가기 버튼 클릭 이벤트
 $continueButton.addEventListener("click", function () {
   closeModal();
-  $characterButton.focus();
-  $characterButton.scrollIntoView({ behavior: "smooth" });
+  document
+    .querySelector(".characterArea")
+    .scrollIntoView({ behavior: "smooth" });
 });
 
 // 다시하기 버튼 클릭 이벤트
@@ -174,11 +178,7 @@ function clearAnswers(container1, container2) {
   $modalButtons.style.display = "none";
 
   // data 배열에서 마지막 두 항목 제거하기
-  data.splice(data.length - 2, 2);
-
-  // 버튼 비활성화
-  $characterButton.disabled = true;
-  $happeningButton.disabled = true;
+  data.splice(data.length - 4, 4);
 }
 
 // 스크롤 이벤트리스너 등록
