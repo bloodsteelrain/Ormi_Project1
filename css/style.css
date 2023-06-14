@@ -268,7 +268,7 @@ footer {
   line-height: 150%;
 }
 
-#modalText {
+.modalText {
   white-space: pre-line;
 }
 
@@ -299,7 +299,7 @@ footer {
 /* //modal */
 
 /* top */
-#topButton {
+.topButton {
   position: fixed;
   bottom: 25px;
   right: 25px;
@@ -313,19 +313,19 @@ footer {
   border: 3px solid #f5f5f5;
 }
 
-#topButton:hover {
+.topButton:hover {
   background-color: #6d483c;
 }
 /* //top */
 
 /* loading */
-#loadingImg {
+.loadingImg {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
-#loadingImg img {
+.loadingImg img {
   display: block;
   margin: 0 auto;
 }

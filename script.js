@@ -1,19 +1,19 @@
 const $plotContainer = document.querySelector(".plotContainer");
-const $topicInput = document.querySelector("#topicInput");
-const $genreInput = document.querySelector("#genreInput");
+const $topicInput = document.querySelector(".topicInput");
+const $genreInput = document.querySelector(".genreInput");
 const $plotButton = document.querySelector(".plotButton");
-const $inputText = document.querySelector("#inputText");
-const $characterButton = document.querySelector("#characterButton");
-const $happeningButton = document.querySelector("#happeningButton");
+const $inputText = document.querySelector(".inputText");
+const $characterButton = document.querySelector(".characterButton");
+const $happeningButton = document.querySelector(".happeningButton");
 const $characterSector = document.querySelector(".characterSector");
-const $characterContainer1 = document.querySelector("#characterContainer1");
-const $characterContainer2 = document.querySelector("#characterContainer2");
+const $characterContainer1 = document.querySelector(".characterContainer1");
+const $characterContainer2 = document.querySelector(".characterContainer2");
 const $happeningSector = document.querySelector(".happeningSector");
-const $happeningContainer = document.querySelector("#happeningContainer");
+const $happeningContainer = document.querySelector(".happeningContainer");
 const $modalContent = document.querySelector(".modalContent");
-const $restartButton = document.querySelector("#restartButton");
-const $continueButton = document.querySelector("#continueButton");
-const $topButton = document.querySelector("#topButton");
+const $restartButton = document.querySelector(".restartButton");
+const $continueButton = document.querySelector(".continueButton");
+const $topButton = document.querySelector(".topButton");
 
 // chatGPT API
 const url = `https://estsoft-openai-api.jejucodingcamp.workers.dev/`;
@@ -59,7 +59,7 @@ $plotButton.addEventListener("click", (e) => {
     plotAnswer.innerText = answer;
     $plotContainer.appendChild(plotAnswer);
     // 모달 텍스트 설정
-    document.querySelector("#modalText").textContent = answer;
+    document.querySelector(".modalText").textContent = answer;
     document.querySelector(".modalButtons").style.display = "block";
   });
 });
@@ -141,14 +141,14 @@ function chatGptAPI(data, callback) {
 // 답변 모달 열기
 function openModal() {
   // 모달 열기
-  document.querySelector("#modal").style.display = "block";
+  document.querySelector(".modal").style.display = "block";
   // 모달이 나타난 후에 모달 닫기 버튼 활성화
   document.querySelector(".close").addEventListener("click", closeModal);
 }
 
 // 답변 모달 닫기
 function closeModal() {
-  document.querySelector("#modal").style.display = "none";
+  document.querySelector(".modal").style.display = "none";
 }
 
 // 다시하기 버튼 클릭 이벤트
@@ -184,7 +184,7 @@ $topButton.addEventListener("click", function () {
 // 로딩 이미지 생성
 function loading(loadingLocation) {
   const loadingImg = document.createElement("div");
-  loadingImg.id = "loadingImg";
+  loadingImg.className = "loadingImg";
   loadingImg.innerHTML = '<img src="./img/Spinner-1s-200px.gif">';
   // 로딩중 레이어 추가
   loadingLocation.appendChild(loadingImg);
@@ -194,7 +194,7 @@ function loading(loadingLocation) {
 
 // 로딩 이미지 숨기기
 function closeLoading() {
-  document.querySelector("#loadingImg").remove();
+  document.querySelector(".loadingImg").remove();
 }
 
 // 모든 #링크에 대해 스무스 스크롤 이벤트리스너 등록

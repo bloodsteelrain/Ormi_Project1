@@ -79,46 +79,50 @@
       <div class="container">
         <ul class="plotContainer"></ul>
         <div class="inputArea">
-          <form id="inputForm">
-            <input type="text" id="topicInput" placeholder="소재" />
-            <input type="text" id="genreInput" placeholder="장르" />
+          <form class="inputForm" id="inputForm">
+            <input type="text" class="topicInput" placeholder="소재" />
+            <input type="text" class="genreInput" placeholder="장르" />
             <button type="submit" class="plotButton">플롯 생성</button>
           </form>
-          <div id="inputText"></div>
+          <div class="inputText"></div>
         </div>
       </div>
       <!-- //소재 장르 파트 -->
 
       <div class="detailContainer">
         <!-- 등장인물 파트 -->
-        <button id="characterButton" disabled>등장인물</button>
+        <button class="characterButton" id="characterButton" disabled>
+          등장인물
+        </button>
         <div class="characterSector">
-          <ul id="characterContainer1"></ul>
-          <ul id="characterContainer2"></ul>
+          <ul class="characterContainer1"></ul>
+          <ul class="characterContainer2"></ul>
         </div>
         <!-- //등장인물 파트 -->
         <!-- 에피소드 파트 -->
         <div class="happeningSector">
-          <button id="happeningButton" disabled>에피소드</button>
-          <ul id="happeningContainer"></ul>
+          <button class="happeningButton" id="happeningButton" disabled>
+            에피소드
+          </button>
+          <ul class="happeningContainer"></ul>
         </div>
         <!-- //에피소드 파트 -->
       </div>
 
       <!-- 모달 -->
-      <div id="modal" class="modal">
+      <div class="modal">
         <div class="modalContent">
           <span class="close">&times;</span>
-          <p id="modalText"></p>
+          <p class="modalText"></p>
           <div class="modalButtons">
-            <button id="restartButton">다시하기</button>
-            <button id="continueButton">이어가기</button>
+            <button class="restartButton">다시하기</button>
+            <button class="continueButton">이어가기</button>
           </div>
         </div>
       </div>
       <!-- //모달 -->
 
-      <button id="topButton"><i class="fa-solid fa-arrow-up"></i></button>
+      <button class="topButton"><i class="fa-solid fa-arrow-up"></i></button>
     </div>
     <!-- //main -->
 
