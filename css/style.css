@@ -1,3 +1,4 @@
+/* font */
 @font-face {
   font-family: "Dovemayo-Medium";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/Dovemayo-Medium.woff")
@@ -13,6 +14,7 @@
   font-weight: normal;
   font-style: normal;
 }
+/* //font */
 
 body {
   height: 100vh;
@@ -75,7 +77,7 @@ nav {
   justify-content: space-between;
   padding: 10px 20px 10px 20px;
   position: sticky;
-  top: 0;
+  top: 0px;
 }
 
 .logo {
@@ -212,6 +214,8 @@ footer {
   word-break: keep-all;
 }
 /* //description */
+
+/* mainArea */
 .mainArea {
   display: flex;
   flex-direction: column;
@@ -252,7 +256,9 @@ footer {
   padding: 10px;
   row-gap: 30px;
 }
+/* mainArea */
 
+/* saveArea */
 .saveArea {
   display: flex;
   flex-direction: column;
@@ -272,7 +278,6 @@ footer {
 }
 
 .characterSector {
-  position: relative;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -283,12 +288,12 @@ footer {
 }
 
 .happeningSector {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
+/* //saveArea */
 
 /* modal */
 .modal {
@@ -354,7 +359,6 @@ footer {
 .restartButton {
   margin: 0 40px;
   font-size: 12px;
-  /* border: 1px solid #795346; */
   background-color: #f5f5f5;
   color: #795346;
 }
