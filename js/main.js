@@ -121,4 +121,5 @@ $continueButton.addEventListener("click", function () {
 $restartButton.addEventListener("click", function () {
   clearAnswers($plotContainer, $modalText);
   closeModal();
+  $inputText.innerText = "";
 });
